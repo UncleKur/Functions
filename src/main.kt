@@ -24,7 +24,11 @@ fun main() {
         productName = "яблоко",
         productPrice = 35.75,
         productAmount = 1.6,
-        discount = 10
+        discount = 10,
+        printInfo = {productName, productPrice, productAmount, discount ->
+            println("$productName, $productPrice, $productAmount, $discount")
+            println("Инфо с лямбды")
+        }
     )
 
 
@@ -34,8 +38,15 @@ fun printTotalProductPrice(
     productName: String,
     productPrice: Double,
     productAmount: Double,
-    discount: Int
+    discount: Int,
+    printInfo: ((
+        productName: String,
+        productPrice: Double,
+        productAmount: Double,
+        discount: Int
+    ) -> Unit)? = null
 ) {
     val totalPrice = productPrice * productAmount * ((100 - discount) / 100.0)
     println("Итого $productName стоит $totalPrice")
+    printInfo?.invoke(productName, productPrice, productAmount, discount)
 }
